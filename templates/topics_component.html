@@ -1,0 +1,21 @@
+{% extends "master.html" %}
+
+{% block content %}
+ <div class="container-fluid ms-md-0">
+         <h5 class="text-white">Browser Topic</h5>
+         <div class="mb-4 mt-4">
+                <a href="/" class="text-white text-decoration-none">All</a>
+            </div>
+            
+        {% for topic in topicsProperty %}
+            <div class="row my-3">
+                <div class="col-5">
+                    <span class="text-white">{{topic.topic}}({{topic.topicCount}})</span>
+                </div>
+                <div class="col-4 ms-auto">
+                    <a href="{% url 'home' %}?q={{topic.topic}}" class="btn btn-secondary text-white">Follow</a>
+                </div>
+            </div>  
+        {% endfor %}
+ </div>
+{% endblock content %}

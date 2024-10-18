@@ -1,0 +1,23 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title %}HomePage{% endblock title %} 
+{% block css %} 
+ {%endblock css %}
+{% block content %} 
+{% include "navbar.html" %}
+<div class="container-fluid p-4" style="background-color: black;min-height: 100vh;">
+    <div class="col-12 d-flex flex-md-row flex-column justify-content-between">
+      <div class="col-lg-3 col-md-2 col-12 mt-3">{% include "topics_component.html" %}
+        <hr class="text-white">
+      </div>
+      <div class="col-lg-5 col-md-4 col-12 mt-3">{% include "feed_component.html" %}
+        <hr class="text-white">
+      </div>
+      <div class="col-md-3 mt-3 col-12">{% include "activity_component.html" %}
+        <hr class="text-white">
+      </div>
+  </div>
+  
+</div>
+
+{% endblock content %}

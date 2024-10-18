@@ -1,0 +1,21 @@
+{% extends "master.html" %}
+
+{% block title %}delete Confirmation{% endblock title %}
+
+ {% block content %}
+ <div class="container text-white" style="height: 100vh;background-color: black;">
+      <div class="h-100 d-flex justfify-content-center align-items-center">
+         <div class="col-12">
+             <form method="POST" class="col-12">
+            {% csrf_token %}
+            <h1>Are you want to delete this <br> <span class="col-12 text-info text-center">{{obj}}</span></h1>
+            {% comment %} <a href="{{request.META.HTTP_REFERER}}">Go back</a> {% endcomment %}
+            <a href="{% url 'home' %}" class="btn btn-secondary text-decoration-none">Go back</a>
+            <input type="submit" class="btn btn-danger text-decoration-none" value="Delete">
+         </form>
+         </div>
+        
+      </div>
+ </div>
+
+ {% endblock content %}

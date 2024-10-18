@@ -1,0 +1,67 @@
+{% extends "master.html" %}
+{% load static %}
+{% block css %}
+{% endblock css %}
+{% block content %}
+<div class="col-12 my-2">
+  <div class="col-12 d-flex justify-content-between py-2">
+    <section>
+      <h4>Room</h4>
+      <p class="text-secondary">{{room_count}} Room available.</p>
+    </section>
+    <section>
+      <a href="{% url 'create_room' %}" class="btn btn-info text-dark"> <i class="fa fa-plus"></i> CreateRoom</a>
+    </section>
+  </div>
+  <div class="col-12">
+    <p class="text-secondary">All Rooms</p>
+    {% for room in rooms %}
+    {% if request.user == room.host.user %}
+    <div class="my-3 mt-5 container-fluid">
+       <a href="{% url "update_room" room.id %}" class="btn btn-primary ">Edit</a>
+        <a href="{% url "delete_room" room.id %}" class="btn btn-danger float-end">Delete</a>
+    </div>  
+    {% endif %}
+      <div class="col-12 p-2 ps-4 bg-dark text-secondary mb-2">
+        <header class="col-12 d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center col-5">
+            <img src="{{room.host.userImage.url}}" alt="" id="userimage" class="img-rounded">
+            {% if room.host.user == request.user %}<div class="onlinecircle"></div>{% endif %}
+        
+          <a href="{% url 'user_profile' room.host.id %}" class="text-decoration-none text-secondary py-3"><span class="mx-1">Host</span> @{{room.host.user.username}}</a>
+          </div>
+            <div class="d-flex justify-content-around col-4">
+            <small>{{room.created|timesince}} ago</small>
+            </div>  
+        </header>
+
+      <section class="col-12">
+        <h5><a href="{% url "room" room.id %}" class="text-decoration-none text-white">{{room.name}}</a></h4>
+          
+         <div class="col-12 d-flex flex-wrap">
+          {% for participant in room.participants.all %}
+          {% if pariticipant.id is not room.host.id %}
+          <div class="me-2 p-1">
+            <img src="{{participant.userImage.url}}" alt="" id="userimage" class="img-rounded">
+          </div>
+            
+          {% endif %}
+          {% endfor %}  
+        </div> 
+        <hr>
+      </section>
+
+
+        <footer class="d-flex justify-content-between col-12 align-items-center px-3">
+          <div class="d-flex justify-content-between px-2 col-3">
+            <p><i class="fa fa-user"></i> {{room.participants.all.count}} Joined</p>
+          </div>
+          <a href="{% url "home" %}?q={{room.topic}}" class="me-2 btn btn-secondary btn-sm text-white" id="topic_name">{{room.topic.name}}</a>
+        </footer>
+     
+     
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

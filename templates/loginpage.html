@@ -1,0 +1,77 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Login Page{% endblock title %}
+
+{% block content %}
+
+{% block css %} <link rel="stylesheet" href="{% static 'css/loginpage.css' %}"> {% endblock css %}
+
+<div class="container-fluid d-flex flex-column justify-content-around loginpage" style="background-color: black; height:100vh;">
+{% for message in messages %}
+    <h5 class="text-center text-info">{{message}}</h5>
+    {% endfor %}
+
+<div class="formsection col-12 d-flex align-items-center justify-content-center ">
+    {% if page == 'login' %}
+    <div class="col-12 d-flex flex-column align-items-center">
+       
+        <form method="POST" class="col-md-4 col-12 d-flex flex-column justify-content-center pb-3 bg-dark" >
+        {% csrf_token %}
+        <header class="col-12">
+            <div class="col-12 p-3 bg-secondary text-white logintext d-flex">
+                <a href="{% url 'home' %}" class="text-white text-decoration-none h3"><i class="fa fa-arrow-left"></i></a>
+                <span class="col-10 text-center h3"> Login</span>
+            </div>
+        </header>
+        <h5 class="text-center text-info p-3">Find your study partner</h5>
+        <div class="col-12 px-3">
+            <div class="mb-md-3 px-2 mx-md-4 my-2 col-md-10 col-12">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" name="username" id="username" placeholder="e.g:-vijay@123"  class="form-control bg-dark border border-1 border-white text-white">
+            </div>
+            <div class="mb-md-3 px-2 mx-md-4 my-2 col-md-10 col-12">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" id="password"  placeholder="Enter Password" class="form-control bg-dark border border-1 border-white text-white">
+            </div>
+        
+            <div class="mx-md-4 px-2 mt-3">
+                <button type="submit" class="btn btn-info text-white "><i class="fa fa-lock"></i> Login</button>
+            </div>
+        </div>
+    
+        <div class="p-3">
+            <span class="form-text text-center d-block">Haven't signedUp yet?</span>
+            <a href="{% url "registerpage" %}" class="text-decoration-none text-info text-center d-block">Sign Up</a>
+        </div>
+        
+        </form>
+    </div>
+    {% else %}
+
+    <div class="col-4 bg-dark d-flex flex-column align-items-center registertext">
+       
+        <header class="col-12">
+            <div class="col-12 p-3 bg-secondary text-white logintext d-flex">
+                <a href="{% url 'home' %}" class="text-white text-decoration-none h3"><i class="fa fa-arrow-left"></i></a>
+                <span class="col-10 text-center h3"> Register</span>
+            </div>
+        </header>
+            <form action="" method="POST" enctype="multipart/form-data" class="col-md-10 col-12 d-flex flex-column justify-content-center pb-3 bg-dark my-3" >
+                {% csrf_token %}
+                {{form.as_p}}
+                <div class="my-3 col-md-10 col-12 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-info text-white "><i class="fa fa-lock"></i> Register </button>
+                </div>
+                <div class="col-md-10 col-12">
+                    <span class="form-text text-center d-block">Already have an account</span>
+                    <a href="{% url "loginpage" %}" class="text-decoration-none text-info text-center d-block">Sign In</a>
+                </div>
+                
+            </form>
+    </div>
+
+    {% endif %}
+</div>
+</div>
+
+{% endblock content %}

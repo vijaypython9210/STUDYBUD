@@ -1,0 +1,41 @@
+{% extends "master.html" %} 
+{% block content %}
+<div class="col-12 pb-3 bg-dark">
+  <h5 class="bg-secondary text-white p-2 col-12 ps-4">Recent Activity</h5>
+  {% for message in messages %}
+  <div
+    class="d-flex flex-column border border-1 m-4"
+    style="border-radius: 12px"
+  >
+    <div class="col-12 px-3 pt-3">
+      <div class="col-2 d-flex">
+        <img
+          src="{{message.userhost.userImage.url}}"
+          alt=""
+          id="userimage1"
+          class="img-rounded"
+        />
+        <a
+          href="{% url 'user_profile' message.userhost.id %}"
+          class="text-decoration-none text-info d-block ms-2"
+          >@{{message.userhost.user.username}}
+        </a>
+      </div>
+      <div class="ms-lg-4 ms-0">
+        <p class="text-white">{{message.created|timesince}} ago</p>
+        <p>
+          replied to <span class="text-info d-block">{{message.room}}</span>
+        </p>
+      </div>
+    </div>
+    <p
+      class="px-3 mx-lg-3 mx-1 py-2 rounded-3"
+      style="background-color: black; color: white;"
+    >
+      {{message.body}}
+    </p>
+  </div>
+
+  {% endfor %}
+</div>
+{% endblock content %}

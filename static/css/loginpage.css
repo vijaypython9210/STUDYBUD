@@ -1,0 +1,24 @@
+.loginpage{
+    height: 100vh;
+    background-color: black;
+    color: #ccc;
+}
+
+form
+{
+    border-radius: 15px;
+    color: #ccc;
+}
+
+.logintext
+{
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+.registertext
+{
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}

@@ -1,0 +1,27 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Create Room Form{% endblock title %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/room.css' %}">{% endblock css %}
+{% block content %}
+
+<div class="create_room col-12 d-flex align-items-center justify-content-center">
+        <div class="col-12 d-flex flex-column align-items-center my-3  px-md-0 px-3 ">
+            <form method="POST" class="col-md-4 col-12 d-flex flex-column justify-content-center pb-3 bg-dark" autocomplete="off" style="border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;">
+            {% csrf_token %}
+            <header class="col-12">
+                <p class="p-3 col-12 text-center bg-secondary text-white createroomtext">CREATE ROOM</p>
+            </header>
+            <h5 class="text-center text-info px-3 py-2">Learn and Teach </h5>
+            <div class="px-4">
+                {{form.as_p}}
+            </div>
+            <div class=" mx-4">
+                <button type="submit" class="btn btn-info text-white "><i class="fa fa-lock"></i> Submit</button>
+            </div>            
+            </form>
+        </div>
+   
+</div>
+
+{% endblock content %}

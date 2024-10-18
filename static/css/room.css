@@ -1,0 +1,48 @@
+
+#roompage
+{
+    min-height: 100vh;
+    background-color: black;
+}
+
+.room_messages
+{
+    min-height: auto;
+    background-color: black;
+}
+
+.create_room
+{
+    background-color: black;
+    height: auto;
+}
+
+.createroomtext
+{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.room_participants
+{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.room-header
+{
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+}
+
+.comment-box
+{
+    position: sticky;
+    bottom:0;
+}
+
+.participants
+{
+    border-bottom-left-radius: 1.2em;
+    border-bottom-right-radius: 1.2em;
+}

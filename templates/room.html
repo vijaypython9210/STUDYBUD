@@ -1,0 +1,131 @@
+{% extends "master.html" %} 
+{% load static %} 
+{% block title %}Room{% endblock title %} 
+{% block css %}<link rel="stylesheet" href="{% static 'css/room.css' %}" />{% endblock css %} 
+{% block content %} 
+{% include "navbar.html" %}
+<div class="container-fluid d-flex flex-md-row flex-column justify-content-md-around"
+  id="roompage">
+  {% comment %} Comment Wrapper Section {% endcomment %}
+  <div class="col-md-6 col-12 mt-md-4 mt-2 h-100">
+    <header class="bg-secondary p-3 room-header ps-4">
+      <a href="/" id="room_header" class="text-decoration-none text-white h6">
+        <i class="fa fa-arrow-left"></i> {{room.name|upper}}
+      </a>
+    </header>
+
+    <div class="comment-wrapper bg-dark text-white pb-5">
+      {% comment %} comment-wrapper-header {% endcomment %}
+      <div class="col-12 d-flex justify-content-between px-3">
+        <div class="ms-md-3 p-3 comment-wrapper-details">
+          <h5 class="text-info">{{room.name}}</h5>
+          <span>{{room.created|timesince}}</span><br />
+          <small class="text-secondary">HOSTED BY</small><br />
+          <img src="{{room.host.userImage.url}}" alt="" id="userimage" />
+          <a
+            class="text-info text-decoration-none py-3"
+            href="{% url 'user_profile' room.host.id %}"
+            >@{{room.host.user.username}}</a
+          >
+        </div>
+        {% if request.user.is_authenticated and request.user != room.host.user %}
+        <div class="mt-5 ms-auto me-md-5">
+          <a
+            href="{% url 'follow' room.id  %}"
+            class="px-5 py-2 rounded-pill btn btn-outline-info text-decoration-none h6 pointer"
+            >join</a
+          >
+        </div>
+        {% endif %}
+      </div>
+      {% comment %} room_message {% endcomment %}
+      <div
+        class="room_messages d-flex flex-column justify-content-between px-2 mx-3 col-11 pb-3"
+      >
+        {% for room_message in room_messages %}
+        <div>
+          <div class="border-start py-3 m-4 ps-3">
+            <div class="d-md-flex justify-content-between col-12">
+              <div>
+                <img
+                  src="{{room_message.userhost.userImage.url}}"
+                  alt=""
+                  id="userimage"
+                />
+                <a
+                  class="text-info text-decoration-none py-3"
+                  href="{% url 'user_profile' room_message.userhost.id %}"
+                  >@{{room_message.userhost.user}}</a
+                >
+                <span>Sent at {{room_message.created|time}}</span>
+                <h6 class="mt-3 ms-2">{{room_message.body}}</h6>
+              </div>
+              <div>
+                {% if request.user == room_message.userhost.user %}
+                <a
+                  href="{% url 'delete_message' room_message.id %}"
+                  class="btn btn-danger btn-sm"
+                  >Delete</a
+                >
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %} {% comment %} Comment Box section {% endcomment %}
+        <div class="ps-4 mt-4 pe-3 comment-box">
+          {% if request.user.is_authenticated %}
+          <div class="col-12">
+            <form method="POST" class="d-flex">
+              {% csrf_token %}
+              <div class="col-8">
+                <input
+                  type="text"
+                  name="body"
+                  placeholder="Enter a comments..."
+                  class="form-control"
+                  required
+                />
+              </div>
+
+              <input
+                type="submit"
+                value="Submit"
+                class="btn btn-primary ms-auto me-2"
+              />
+            </form>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Participants {% endcomment %}
+  <div class="col-lg-2 col-md-3 col-12 mt-md-4 my-2">
+    <div class="col-12 bg-dark participants">
+    <h6 class="col-12 bg-secondary p-3 room_participants text-white">
+      Participants ({{participants.all.count}} joined)
+    </h6>
+    {% for userProfile in participants %}
+    <div class="col-12 d-flex mb-2 pb-3 px-3">
+    <img
+        src="{{userProfile.userImage.url}}"
+        alt=""
+        id="userimage"
+        class="ms-3"
+    />
+        <div class="ms-2">
+            <span class="text-white">{{userProfile.user.username|upper}}</span><br />
+            <a
+            class="text-white text-decoration-none py-3"
+            href="{% url 'user_profile' userProfile.id %}"
+            >@{{userProfile}}</a
+            >
+        </div>
+    </div>    
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}

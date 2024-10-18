@@ -1,0 +1,19 @@
+{% load static %}
+{% load bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% block css %}{% endblock css %}
+</head>
+<body class="master">
+    {% block content %}{% endblock content %} 
+</body>
+</html>
